@@ -1,4 +1,4 @@
-const API_URL = "https://employeeetaskmanagement-g3hyh9c3dvawgft.westeurope-01.azurewebsites.net";
+const API_URL = "http://127.0.0.1:8000";
 
 
 
