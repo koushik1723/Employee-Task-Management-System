@@ -9,14 +9,13 @@ DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 SQLALCHEMY_DATABASE_URL = (
-    f"mssql+pyodbc://{DB_USER}:{DB_PASSWORD}"
-    f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    f"?driver=ODBC+Driver+17+for+SQL+Server"
+    f"mssql+pyodbc://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    f"?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes"
 )
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
-    fast_executemany=True
+    pool_pre_ping=True,
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
