@@ -3,14 +3,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 DB_HOST = os.getenv("DB_HOST")
-DB_PORT = os.getenv("DB_PORT", "1433")
+DB_PORT = os.getenv("DB_PORT")
 DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 
+
 SQLALCHEMY_DATABASE_URL = (
     f"mssql+pyodbc://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    f"?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes"
+    f"?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes;TrustServerCertificate=yes"
 )
 
 engine = create_engine(
