@@ -1,20 +1,19 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# SQLite database file in project root (employee-task-management-system/app.db)
-SQLALCHEMY_DATABASE_URL = "sqlite:///./app.db"
+# Azure SQL Connection
+SQLALCHEMY_DATABASE_URL = "mssql+pyodbc://employeemanagement:%233Hfe5awcjk@employeeetaskmanagement.database.windows.net:1433/employeedb?driver=ODBC+Driver+17+for+SQL+Server"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
-    connect_args={"check_same_thread": False}  # needed only for SQLite
+    pool_pre_ping=True
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
-
-# Dependency: get DB session for each request
+# Dependency: get DB session
 def get_db():
     db = SessionLocal()
     try:
